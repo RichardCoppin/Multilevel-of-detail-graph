@@ -13,6 +13,7 @@ Zoom on the other hand merely changes the size of the rendered objects.
 
 # Components
 
+![ComponentDiagram](./images/components.svg)
 ## Groups and Nodes
 The key part of the graph is the group.
 A group may contain nodes and other groups.
@@ -34,7 +35,7 @@ When a group is embedded into another group, then that group is treated similar 
 Groups are connected to other groups via conduits. Objects are connected to other objects via connections. 
 The connection between one object in one group and another object in another group must travel through the conduit. 
 All connections will bundle together along that conduit. 
-The thickness of the conduit is determined by the number of connections travelling along that conduit.
+The thickness of the conduit is determined by the number of connections traveling along that conduit.
 
 
 ### Connection
@@ -44,7 +45,7 @@ along pre-existing conduits
 
 
 ### Conduit
-A conduit represents the 'logical' connection between two `groups`. When a conduit is connected to a group which is within another (super) group, and that super-group is connected via a (super) conduit to another super-group, then the conduits will route through the super conduit, and any adges will route through those.
+A conduit represents the 'logical' connection between two `groups`. When a conduit is connected to a group which is within another (super) group, and that super-group is connected via a (super) conduit to another super-group, then the conduits will route through the super conduit, and any edges will route through those.
 
 
 ### Knot (possible)

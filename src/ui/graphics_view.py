@@ -26,25 +26,40 @@ class Graphics_View(QGraphicsView):
         self.zoom = 10
         self.zoom_step = 1
 
+        self._define_Behaviour_flags()
+
+
+    def _define_Behaviour_flags(self):
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.SmoothPixmapTransform)
         self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
+        self.setViewportUpdateMode(QGraphicsView.ViewportUpdateMode.FullViewportUpdate)
     
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
-        if event.button() == Qt.MouseButton.MiddleButton:
-            self.middleMouseButtonPress(event)
-        else:
-            super().mousePressEvent(event)
+        match event.button():
+            case Qt.MouseButton.MiddleButton:
+                self.middle_MouseButtonPress(event)
+            case Qt.MouseButton.LeftButton:
+                self.left_MouseButtonPress(event)
+            case Qt.MouseButton.RightButton:
+                self.right_MouseButtonPress(event)
+            case _:
+                super().mousePressEvent(event)
 
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:
-        if event.button() == Qt.MouseButton.MiddleButton:
-            self.middleMouseButtonRelease(event)
-        else:
-            super().mouseReleaseEvent(event)
+        match event.button():
+            case Qt.MouseButton.MiddleButton:
+                self.middle_MouseButtonRelease(event)
+            case Qt.MouseButton.LeftButton:
+                self.left_MouseButtonRelease(event)
+            case Qt.MouseButton.RightButton:
+                self.right_MouseButtonRelease(event)
+            case _:
+                super().mouseReleaseEvent(event)
 
     
-    def middleMouseButtonPress(self, event: QMouseEvent) -> None:
+    def middle_MouseButtonPress(self, event: QMouseEvent) -> None:
         #FIXME: SPoofing mouse buttons, doesn't sound like a good idea:
         release_event = QMouseEvent(
             QEvent.Type.MouseButtonRelease, event.localPos(), event.screenPos(), Qt.MouseButton.MiddleButton,
@@ -61,8 +76,24 @@ class Graphics_View(QGraphicsView):
         super().mousePressEvent(fake_event)            
 
 
-    def middleMouseButtonRelease(self, event: QMouseEvent) -> None:
+    def middle_MouseButtonRelease(self, event: QMouseEvent) -> None:
         self.setDragMode(QGraphicsView.DragMode.NoDrag)
+
+
+    def left_MouseButtonPress(self, event: QMouseEvent) -> None:
+        super().mousePressEvent(event)
+
+
+    def left_MouseButtonRelease(self, event: QMouseEvent) -> None:
+        super().mouseReleaseEvent(event)
+
+
+    def right_MouseButtonPress(self, event: QMouseEvent) -> None:
+        super().mousePressEvent(event)
+
+
+    def right_MouseButtonRelease(self, event: QMouseEvent) -> None:
+        super().mouseReleaseEvent(event)
 
 
     def wheelEvent(self, event: QWheelEvent) -> None:

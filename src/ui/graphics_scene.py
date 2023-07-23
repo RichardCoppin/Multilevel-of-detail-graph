@@ -1,9 +1,9 @@
 import math
-from typing import Union
 from PySide6.QtCore import (
     QRect,
     QRectF,
-    QLine
+    QLine,
+    QPoint
 )
 from PySide6.QtWidgets import (
     QGraphicsScene
@@ -13,6 +13,8 @@ from PySide6.QtGui import (
     QPainter,
     QPen
 )
+
+from ui.graphics_node import Graphics_Node
 
 GRID_SIZE = 20
 LARGE_GRID = 5
@@ -60,7 +62,6 @@ class Graphics_Scene(QGraphicsScene):
 
 
     def define_grid_lines(self, rect: QRectF | QRect):
-
         left = int(math.floor(rect.left()))
         right = int(math.ceil(rect.right()))
         top = int(math.ceil(rect.top()))
@@ -90,3 +91,8 @@ class Graphics_Scene(QGraphicsScene):
         dark_lines = h_dark_lines + v_dark_lines
         
         return light_lines, dark_lines
+
+
+    def add_node(self, node: Graphics_Node):
+        self.addItem(node)
+    

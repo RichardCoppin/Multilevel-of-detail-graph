@@ -10,12 +10,14 @@ from PySide6.QtWidgets import (
 
 from PySide6.QtCore import (
     Qt, 
-    QRect
+    QRect,
+    QPoint
 )
 from PySide6.QtGui import QColor
 
 
 from ui.graphics_scene import Graphics_Scene
+from ui.graphics_node import Graphics_Node
 from ui.graphics_view import Graphics_View
 
 WINDOW_HEIGHT = 768
@@ -92,6 +94,16 @@ class Main_Window(QMainWindow):
 
         
     def _add_debug_items(self):
-        scene = self.graphics_scene
+        graphics_scene = self.graphics_scene
 
-        scene.addRect(QRect(-100, -100, 200, 200), QColor("Green"))
+        graphics_scene.addRect(QRect(-100, -100, 200, 200), QColor("Green"))
+        new_node = Graphics_Node(
+            title="New Node Title", 
+            parent=None, 
+            position=QPoint(-10, -10)
+        )
+        graphics_scene.add_node(new_node)
+
+
+    def paint(self):
+        return super().paint()

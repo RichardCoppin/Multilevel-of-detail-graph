@@ -14,6 +14,8 @@ DEFAULT_BACKGROUND_COLOR = '#E685a3b2'
 class Graphics_Node(QGraphicsItem):
     def __init__(self, title, parent: QtWidgets.QWidget | None = None, position: QPoint = QPoint(0, 0)) -> None:
         super().__init__(parent)
+
+        self.parent = parent
         self.position: QPoint = position
 
         self._define_colors()
@@ -123,3 +125,14 @@ class Graphics_Node(QGraphicsItem):
         painter.setPen(self._default_border_pen if not self.isSelected() else self._selected_border_pen)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(path_outline)
+
+
+    def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
+        super().mousePressEvent(event)    
+        print(event)
+
+
+    def mouseReleaseEvent(self, event: QtGui.QMouseEvent) -> None:
+        super().mouseReleaseEvent(event)    
+        print(event)
+

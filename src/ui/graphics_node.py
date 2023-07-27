@@ -129,10 +129,8 @@ class Graphics_Node(QGraphicsItem):
 
     def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
         super().mousePressEvent(event)    
-        print(event)
 
 
     def mouseReleaseEvent(self, event: QtGui.QMouseEvent) -> None:
         super().mouseReleaseEvent(event)    
-        print(event)
 

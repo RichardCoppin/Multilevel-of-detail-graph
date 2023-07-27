@@ -85,6 +85,10 @@ class Main_Window(QMainWindow):
         self.statusbar.insertPermanentWidget(1, self.status_text)
 
 
+    def set_status_bar_text(self, text:str):
+        self.status_text.setText(text)
+
+
     def define_graphics_scene(self):
         self.view = Graphics_View(self)
         self.top_layout.addWidget(self.view)
@@ -100,7 +104,7 @@ class Main_Window(QMainWindow):
         new_node = Graphics_Node(
             title="New Node Title", 
             parent=None, 
-            position=QPoint(-10, -10)
+            position=QPoint(0, 0)
         )
         graphics_scene.add_node(new_node)
 

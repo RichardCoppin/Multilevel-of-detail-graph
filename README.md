@@ -84,7 +84,7 @@ The algorithms could then back out of the recursion iteratively optimizing the s
 ### Super File:
 The super file will link all the sub-group files together
 
-```json
+```json5
 {
     "name": "Main File",
     "ports": [...],
@@ -164,7 +164,7 @@ The super file will link all the sub-group files together
 ```
 ### A group definition file:
 `/path/to/the/group-x/definition.json`
-```json
+```json5
 {
     "name": "Group X",
     "ports": [  // These ports must be at least a superset of the ports defined in the super file.

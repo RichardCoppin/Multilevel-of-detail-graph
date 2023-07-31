@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import math
 from PySide6.QtCore import (
     Qt,
@@ -14,10 +16,15 @@ from PySide6.QtGui import (
     QPainter,
     QPen,
     QMouseEvent,
+    QKeyEvent
 )
 
-from src.ui.constants import GRID_SIZE, LARGE_GRID
 from src.ui.graphics_node import Graphics_Node
+from src.ui.constants import (
+    GRID_SIZE,
+    KEY_MAPPING, 
+    LARGE_GRID
+)
 
 
 class Graphics_Scene(QGraphicsScene):
@@ -36,6 +43,10 @@ class Graphics_Scene(QGraphicsScene):
         self.scene_width, self.scene_height = 64_000, 64_000
         self.setSceneRect(-self.scene_width//2, -self.scene_height//2, self.scene_width, self.scene_height)
         self.setBackgroundBrush(self._color_background)
+
+        self.functions = {
+            'delete_selected': self.delete_selected,'default': super().keyPressEvent
+        }
 
 
     def rescale_grid(self, scale):
@@ -143,6 +154,13 @@ class Graphics_Scene(QGraphicsScene):
         self.addItem(node)
     
 
+    def delete_selected(self, event: QKeyEvent):
+        for item in self.selectedItems():
+            item.remove()
+        super().keyPressEvent(event)
+    
+
+
     def mouseMoveEvent(self, event: QGraphicsSceneMouseEvent) -> None:
         self.parent()._parent.set_status_bar_text(
             f"({int(event.scenePos().x())}, "
@@ -204,3 +222,10 @@ class Graphics_Scene(QGraphicsScene):
 
     def right_MouseButtonRelease(self, event: QMouseEvent) -> None:
         super().mouseReleaseEvent(event)
+
+    
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        _function_name = KEY_MAPPING.get(event.key(), 'default')
+        _function = self.functions.get(_function_name, super().keyPressEvent)
+        _function(event)
+

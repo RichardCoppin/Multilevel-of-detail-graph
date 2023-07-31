@@ -6,7 +6,6 @@ from PySide6.QtWidgets import QApplication
 from PySide6 import QtCore
 
 from ui.main_window import Main_Window
-from model.scene import Scene, add_node_to_scene
 
 
 def main(app):

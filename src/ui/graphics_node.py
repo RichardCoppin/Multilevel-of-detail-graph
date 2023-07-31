@@ -74,6 +74,10 @@ class Graphics_Node(QGraphicsItem):
         self.title_item.setPlainText(self._title)
 
 
+    def remove(self):
+        self.scene().removeItem(self)
+
+
     def boundingRect(self) -> QRect:
         return QRect(self.position.x(), self.position.y(), self.width, self.height)
 
@@ -133,4 +137,4 @@ class Graphics_Node(QGraphicsItem):
 
     def mouseReleaseEvent(self, event: QtGui.QMouseEvent) -> None:
         super().mouseReleaseEvent(event)    
-
+        
